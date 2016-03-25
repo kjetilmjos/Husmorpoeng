@@ -1,6 +1,7 @@
 // config/database.js
+var config = require('./config.json');
 module.exports = {
 
-    'url' : 'localhost:27017/husmorapp' // looks like mongodb://<user>:<pass>@mongo.onmodulus.net:27017/Mikha4ot
+    'url' : config.mongodb_url // looks like mongodb://<user>:<pass>@mongo.onmodulus.net:27017/Mikha4ot
 
 };
