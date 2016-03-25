@@ -10,7 +10,7 @@ var port     = process.env.PORT || 8080;
 var mongoose = require('mongoose');
 var passport = require('passport');
 var flash    = require('connect-flash');
-var config = require('./config.json');
+var config = require('./config/config.json');
 
 var morgan       = require('morgan');
 var cookieParser = require('cookie-parser');
