@@ -1,0 +1,296 @@
+<html>
+
+<head>
+
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css" />
+  <link type="text/css" rel="stylesheet" href="../static/husmor.css" />
+  <script src="../static/husmor.js"></script>
+
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-more.js"></script>
+  <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+  <script>
+    $(document).on("pageshow", "#statistikk", function() {
+      load();
+      get_favorites();
+    });
+  </script>
+</head>
+
+<body>
+  <p hidden id="approver_points">
+    <% if(approver_points[0]){ %>
+      <%= approver_points[0].points %>
+        <% } else{ %>
+          0
+          <% } %>
+  </p>
+  <p hidden id="user_points">
+    <% if(user[0]){ %>
+      <%= user[0].points %>
+        <% } else{ %>
+          0
+          <% } %>
+  </p>
+  <!-- ################OPPGAVE SIDE############################### -->
+  <div data-role="page" class="jqm-demos" data-quicklinks="true" id="oppgaver">
+    <div data-role="header" class="jqm-header">
+      <a href="#nav-panel" class="jqm-navmenu-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-bars ui-nodisc-icon ui-alt-icon ui-btn-left">Menu</a>
+      <h1> Husmorpoeng! </h1>
+    </div>
+    <!-- /header -->
+    <div role="main" class="ui-content jqm-content">
+      <div data-role="panel" class="jqm-navmenu-panel" data-position="left" data-display="overlay" data-theme="a" id="nav-panel">
+        <ul data-role="listview">
+          <li><a href="#oppgaver" data-rel="close">Oppgaver</a></li>
+          <li><a href="#statistikk" data-rel="close">Statistikk</a></li>
+          <li><a href="#settings" data-rel="close">Settings</a></li>
+          <!--<li><a href="#global" data-rel="close">Kart</a></li>-->
+          <li><a href="/logout" data-rel="close">Logout</a></li>
+        </ul>
+      </div>
+      <!-- /panel -->
+      <p>Velkommen
+        <%= user[0].name %>. La krigen om husmorpoeng starte!
+        <br>
+        Start med å velge oppgaven du har gjort og velg hvem som skal godkjenne oppgavene dine.
+      </p>
+      Du har foreløpig
+      <%= user[0].points   %> /
+        <%= user[0].point_limit   %> poeng
+          <br>
+          <% if(approver_points[0]){ %>
+            Du konkurer mot
+            <%= approver_points[0].name %> som har
+              <%= approver_points[0].points %> /
+                <%= approver_points[0].point_limit   %> poeng
+                  <% } else{ %>
+                    Den du konkurer mot har 0 poeng
+                    <% } %>
+
+                      <a href="#task" data-rel="popup" class="ui-btn" data-transition="none" style="width:25%">Oppgave</a>
+                      <div data-role="popup" id="task">
+                        <div data-role="header">
+                          <h1>Oppgave</h1>
+                        </div>
+                        <!-- /popup header-->
+                        <div data-role="main" class="ui-content">
+
+                          <ul data-role="listview" id="task_list">
+                            <% for(var i=0; i<tasks.length; i++) {%>
+                              <li>
+                                <a onclick="store_task('<%= tasks[i].name %>', '<%= tasks[i].points %>', '<%= user[0].email %>')">
+                                  <%= tasks[i].name %>
+                                </a>
+                              </li>
+                              <% } %>
+                          </ul>
+                        </div>
+                        <!-- /popup main-->
+
+                      </div>
+                      <!-- /popup-->
+
+                      <!-- LEFT TABLE-->
+
+
+                      <ul data-role="listview" style="float: left" id="list1">
+                        <h3>Utførte oppgaver:
+                          <% if(total_tasks_performed){ %>
+                            <%=total_tasks_performed %>
+                              <% } else{ %>
+                                0
+                                <% } %>
+                        </h3>
+                        <% for(var i=0; i<completed_tasks.length;  i++) {%>
+                          <li>
+                            <a href="#taskdetails" data-rel="popup" class="ui-btn" onclick="detailTask('<%= completed_tasks[i].task_name %>', '<%= completed_tasks[i].user %>','<%= completed_tasks[i].date %>', '<%= completed_tasks[i].approved %>', '<%= completed_tasks[i]._id %>');">
+                              <%= completed_tasks[i].task_name %>
+                            </a>
+                          </li>
+                          <% } %>
+                      </ul>
+
+                      <div data-role="popup" id="taskdetails">
+                        <div data-role="header">
+                          <h1>Detaljer</h1>
+                        </div>
+                        <!-- /popup header-->
+                        <div data-role="main" class="ui-content">
+                          <p>Oppgave:
+                            <span id="detailTask"></span>
+                          </p>
+                          <p> Bruker:
+                            <span id="detailOwner"></span>
+                          </p>
+                          <p> Dato:
+                            <span id="detailDate"></span>
+                          </p>
+                          <p> Godkjent:
+                            <span id="detailApproval"></span>
+                          </p>
+                          <p hidden id="detailId"></p>
+                        </div>
+                        <!-- /popup main-->
+                        <button onclick="deleteTask();">Slett</button>
+
+                      </div>
+
+                      <!-- /popup taskdetails -->
+                      <!-- /LEFT TABLE-->
+                      <!-- RIGHT TABLE-->
+
+                      <ul data-role="listview" style="float: left" id="list1">
+                        <h3>Oppgave til godkjenning:
+                          <% if(total_tasks_for_approval){ %>
+                            <%=total_tasks_for_approval %>
+                              <% } else{ %>
+                                0
+                                <% } %>
+
+                        </h3>
+                        <% if (tfa) { %>
+                          <% for(var i=0; i<tfa.length;  i++) {%>
+                            <li>
+                              <a href="#approveddetails" data-rel="popup" class="ui-btn" onclick="approvedetailTask('<%= tfa[i].task_name %>', '<%= tfa[i].user %>','<%= tfa[i].date %>', '<%= tfa[i].approved %>', '<%= tfa[i]._id %>', '<%= tfa[i].points %>');">
+                                <%= tfa[i].task_name %>
+                              </a>
+                            </li>
+                            <% } %>
+                              <% } %>
+
+                      </ul>
+
+                      <div data-role="popup" id="approveddetails">
+                        <div data-role="header">
+                          <h1>Detaljer</h1>
+                        </div>
+                        <!-- /popup header-->
+                        <div data-role="main" class="ui-content">
+                          <p>Oppgave:
+                            <span id="approvedetailTask"></span>
+                          </p>
+                          <p> Bruker:
+                            <span id="approvedetailOwner"></span>
+                          </p>
+                          <p> Dato:
+                            <span id="approvedetailDate"></span>
+                          </p>
+                          <p> Godkjent:
+                            <span id="approvedetailApproval"></span>
+                          </p>
+                          <p hidden id="approvedetailId"></p>
+                          <p hidden id="approvedetailpoints"></p>
+                        </div>
+                        <!-- /popup main-->
+                        <button onclick="approveTask();">Godkjenn</button>
+
+                      </div>
+
+                      <!-- /popup taskdetails -->
+
+                      <!-- /popup taskdetails -->
+                      <!-- /RIGHT TABLE-->
+
+    </div>
+    <!-- /page oppgaver -->
+  </div>
+  <!-- /page oppgaver -->
+  </div>
+  <!-- /header oppgaver -->
+  <!-- ################/OPPGAVE SIDE############################### -->
+
+
+
+  <!-- ################STATISTIKK SIDE############################### -->
+  <div data-role="page" id="statistikk">
+    <div data-role="header" class="jqm-header">
+      <a href="#nav-panel2" class="jqm-navmenu-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-bars ui-nodisc-icon ui-alt-icon ui-btn-left">Menu</a>
+      <h1> Husmorpoeng! </h1>
+    </div>
+    <!-- /header -->
+    <div role="main" class="ui-content jqm-content">
+      <div data-role="panel" class="jqm-navmenu-panel" data-position="left" data-display="overlay" data-theme="a" id="nav-panel2">
+
+        <ul data-role="listview">
+          <li><a href="#oppgaver" data-rel="close">Oppgaver</a></li>
+          <li><a href="#statistikk" data-rel="close">Statistikk</a></li>
+          <li><a href="#settings" data-rel="close">Settings</a></li>
+          <!--<li><a href="#global" data-rel="close">Kart</a></li>-->
+          <li><a href="/logout" data-rel="close">Logout</a></li>
+        </ul>
+
+      </div>
+      <!-- /panel -->
+      <div id="container-speed" style="width: 300px; height: 200px; float: left; background-color:none"></div>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <br>
+      <h3> Husmorfavoritter </h3>
+
+      <ul data-role="listview" id="house_favorites">
+
+      </ul>
+
+    </div>
+    <!-- /main statistikk   -->
+  </div>
+  <!-- /page statistikk -->
+  <!-- ################/STATISTIKK SIDE############################### -->
+
+
+
+  <!-- ################SETTINGS SIDE############################### -->
+  <div data-role="page" id="settings">
+    <div data-role="header" class="jqm-header">
+      <a href="#nav-panel3" class="jqm-navmenu-link ui-btn ui-btn-icon-notext ui-corner-all ui-icon-bars ui-nodisc-icon ui-alt-icon ui-btn-left">Menu</a>
+      <h1> Husmorpoeng! </h1>
+    </div>
+    <!-- /header -->
+    <div role="main" class="ui-content jqm-content">
+      <div data-role="panel" class="jqm-navmenu-panel" data-position="left" data-display="overlay" data-theme="a" id="nav-panel3">
+
+        <ul data-role="listview">
+          <li><a href="#oppgaver" data-rel="close">Oppgaver</a></li>
+          <li><a href="#statistikk" data-rel="close">Statistikk</a></li>
+          <li><a href="#settings" data-rel="close">Settings</a></li>
+          <!--<li><a href="#global" data-rel="close">Kart</a></li>-->
+          <li><a href="/logout" data-rel="close">Logout</a></li>
+        </ul>
+
+      </div>
+      <!-- /panel -->
+      <input type="text" id="settings_approver" placeholder="Epost til den som skal godkjenne">
+      <button style="width:50%" onclick="changeApprover('<%= user[0].email %>')"> Bytt godkjenner</button>
+      Du konkurer med:
+      <%= user[0].approver %>
+        <br>
+        <br>
+        <br> Reset poeng
+        <button style="width:25%" onclick="resetScore('<%= user[0].email %>')"> Reset</button>
+        <br>
+        <br>
+        <br>
+        <input type="text" id="change_point_limit" placeholder="Endre poeng grense">
+        <button style="width:25%" onclick="changepointlimit('<%= user[0].email %>')"> Endre</button>
+    </div>
+    <!-- /main settings -->
+  </div>
+  <!-- /page settings -->
+  <!-- ################/SETTINGS SIDE############################### -->
+
+
+
+</body>
+
+</html>
