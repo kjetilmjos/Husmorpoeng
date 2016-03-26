@@ -309,8 +309,26 @@
 
       </div>
       <!-- /panel -->
-Opprett husstand: <br>
-Bli med i husstand: <br>
+
+<a href="#CreateHousehold" data-rel="popup" class="ui-btn" data-transition="none" style="width:25%">Opprett Husstand</a>
+<div data-role="popup" id="CreateHousehold">
+  <div data-role="header">
+    <h1>Opprett husstand</h1>
+  </div>
+  <!-- /popup header-->
+  <div data-role="main" class="ui-content">
+    Navn: <input type="text" id="household_name" placeholder="Navn på husstand"> <br>
+    Medlemmer: <input type="text" id="household_members" placeholder="Epost til medlemmene i husstanden"> <br>
+<button onclick="CreateHousehold()"> Opprett Husstand</button>
+    <ul data-role="listview" id="household properties">
+
+    </ul>
+  </div>
+  <!-- /popup main-->
+
+</div>
+<!-- /popup-->
+Bli med i husstand: <input type="text" id="settings_approver" placeholder="Tast inn husstand koden"> <br>
 
 -------------------------------------------------------------- <br>
 Adminstrer husstand:<br>
