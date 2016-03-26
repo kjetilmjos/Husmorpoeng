@@ -204,10 +204,23 @@ function get_favorites() {
     type: "POST",
     success: function(data) {
       var x = 1;
-     for (k = 0; k < data.length; k+=1) {
-    $('#house_favorites').append('<li>' + (k+1) + '. ' + data[k].task_name + '<b> ' + data[k].count + '</b></li>');
-      x +=1;
-        }
+      for (k = 0; k < data.length; k += 1) {
+        $('#house_favorites').append('<li>' + (k + 1) + '. ' + data[k].task_name + '<b> ' + data[k].count + '</b></li>');
+        x += 1;
+      }
     }
   });
+}
+
+function CreateHousehold() {
+  alert("Creating");
+  /*
+  return $.ajax({
+    url: "/husmor/createhousehold",
+    type: "POST",
+    success: function(data) {
+      alert("posta");
+    }
+  });
+  */
 }
