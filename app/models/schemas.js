@@ -25,7 +25,7 @@ var UserSchema = mongoose.Schema({
   points: Number,
   last_reset: Date,
   approver: String,
-  point_limit : Number,
+  point_limit: Number,
 });
 
 var tasksSchema = mongoose.Schema({
@@ -45,6 +45,12 @@ var done_tasksSchema = mongoose.Schema({
   },
 });
 
+var householdSchema = mongoose.Schema({
+  description: String,
+  members: [String],
+  tasks: [String],
+});
+
 // generating a hash
 passportUserSchema.methods.generateHash = function(password) {
   return bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
@@ -60,10 +66,12 @@ var PassportUser = mongoose.model('PassportUser', passportUserSchema);
 var Task = mongoose.model('Task', tasksSchema);
 var Done_Task = mongoose.model('Done_Task', done_tasksSchema);
 var User = mongoose.model('User', UserSchema);
+var Household = mongoose.model('Household', householdSchema);
 
 module.exports = {
   PassportUser: PassportUser,
   Task: Task,
   User: User,
-  Done_Task: Done_Task
+  Done_Task: Done_Task,
+  Household: Household
 };
