@@ -212,15 +212,36 @@ function get_favorites() {
   });
 }
 
-function CreateHousehold() {
-  alert("Creating");
-  /*
+function CreateHousehold(household_name, email) {
+  //alert("Creating " + household_name);
+
   return $.ajax({
     url: "/husmor/createhousehold",
     type: "POST",
+    data: {
+      "description": household_name,
+      "owner": email,
+    },
     success: function(data) {
-      alert("posta");
+      alert(data);
     }
   });
-  */
+
+}
+
+function AddHouseholdMember(household_member, email) {
+  //alert("Creating " + household_name);
+
+  return $.ajax({
+    url: "/husmor/addmember",
+    type: "POST",
+    data: {
+      "new_member": household_member,
+      "owner": email,
+    },
+    success: function(data) {
+      alert(data);
+    }
+  });
+
 }
