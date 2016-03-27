@@ -47,6 +47,7 @@ var done_tasksSchema = mongoose.Schema({
 
 var householdSchema = mongoose.Schema({
   description: String,
+  owner: String,
   members: [String],
   tasks: [String],
 });
