@@ -318,8 +318,7 @@
   <!-- /popup header-->
   <div data-role="main" class="ui-content">
     Navn: <input type="text" id="household_name" placeholder="Navn på husstand"> <br>
-    Medlemmer: <input type="text" id="household_members" placeholder="Epost til medlemmene i husstanden"> <br>
-<button onclick="CreateHousehold()"> Opprett Husstand</button>
+<button onclick="CreateHousehold(household_name.value , '<%= user[0].email %>')"> Opprett Husstand</button>
     <ul data-role="listview" id="household properties">
 
     </ul>
@@ -328,10 +327,12 @@
 
 </div>
 <!-- /popup-->
-Bli med i husstand: <input type="text" id="settings_approver" placeholder="Tast inn husstand koden"> <br>
+
 
 -------------------------------------------------------------- <br>
 Adminstrer husstand:<br>
+Leg til medlemmer i husstand: <input type="text" id="household_members" placeholder="Tast inn epost til medlemm"> <br>
+<button onclick="AddHouseholdMember(household_members.value , '<%= user[0].email %>')">Legg til medlem</button>
 Opprett oppgave <br>
 Fjern oppgave
 
