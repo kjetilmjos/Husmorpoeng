@@ -241,6 +241,34 @@ module.exports = function(app, passport) {
     });
 
   });
+  // CREATE HOUSEHOLD  =========================
+  app.post('/husmor/createhousehold', isLoggedIn, function(req, res) {
+    var new_household = new models.Household({
+      description: req.body.description,
+      owner: req.body.owner,
+      members: "",
+      tasks: "",
+    });
+
+    new_household.save(function(err, thor) {
+      if (err) return console.error(err);
+      //console.dir(new_task);
+    });
+    res.send("Ny husstand lagret");
+  });
+  // ADD MEMBER HOUSEHOLD  =========================
+  app.post('/husmor/addmember', isLoggedIn, function(req, res) {
+    models.Household.update({
+      owner: req.body.owner
+    }, {
+      "$addToSet" : {"members": req.body.new_member},
+    }, function(err, rawResponse) {
+      //handle it
+    })
+    res.send("Medlem lagt til i husstand");
+    });
+
+
 
   // LOGOUT ==============================
   app.get('/logout', function(req, res) {
