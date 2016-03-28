@@ -49,7 +49,7 @@ var householdSchema = mongoose.Schema({
   description: String,
   owner: String,
   members: [String],
-  tasks: [String],
+  tasks: [Object],
 });
 
 // generating a hash
