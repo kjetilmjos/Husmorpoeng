@@ -211,6 +211,7 @@ module.exports = function(app, passport) {
       });
 
       darr = [];
+
       function foo(arr) {
         var count = 0;
         var a = [];
@@ -233,40 +234,72 @@ module.exports = function(app, passport) {
           }
         }
       }
-        var s = foo(qarry);
-        var k = darr.sort(function(a, b) {
-          return parseFloat(b.count) - parseFloat(a.count);
-        });
+      var s = foo(qarry);
+      var k = darr.sort(function(a, b) {
+        return parseFloat(b.count) - parseFloat(a.count);
+      });
       res.send(k);
     });
 
   });
   // CREATE HOUSEHOLD  =========================
   app.post('/husmor/createhousehold', isLoggedIn, function(req, res) {
-    var new_household = new models.Household({
-      description: req.body.description,
+    models.Household.find({
       owner: req.body.owner,
-      members: "",
-      tasks: "",
+    }, {}, {}, function(err, result) {
+
+      if (result[0] === undefined) {
+        var new_household = new models.Household({
+          description: req.body.description,
+          owner: req.body.owner,
+        });
+
+        new_household.save(function(err, thor) {
+          if (err) {
+
+            return console.error(err);
+          } else {
+            res.send("Ny husstand lagret");
+          }
+
+        });
+
+      } else {
+        res.send("Du kan bare være eier av 1 husstand");
+      }
     });
 
-    new_household.save(function(err, thor) {
-      if (err) return console.error(err);
-      //console.dir(new_task);
-    });
-    res.send("Ny husstand lagret");
+
+
   });
   // ADD MEMBER HOUSEHOLD  =========================
   app.post('/husmor/addmember', isLoggedIn, function(req, res) {
     models.Household.update({
       owner: req.body.owner
     }, {
-      "$addToSet" : {"members": req.body.new_member},
+      "$addToSet": {
+        "members": req.body.new_member
+      },
     }, function(err, rawResponse) {
       //handle it
     })
     res.send("Medlem lagt til i husstand");
-    });
+  });
+
+  // NEW TASK  =========================
+  app.post('/husmor/newtask', isLoggedIn, function(req, res) {
+    models.Household.update({
+      owner: req.body.owner
+    }, {
+      "$addToSet": {
+        "tasks": "{" + req.body.task_name + " : " + req.body.task_point + "}"
+          //    "tasks": "{" + req.body.task_name + " : " + req.body.task_point +  "}"
+      },
+    }, function(err, rawResponse) {
+      //handle it
+    })
+    res.send("Ny oppgave lagret");
+  });
 
 
 
