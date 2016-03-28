@@ -313,15 +313,13 @@
 <a href="#CreateHousehold" data-rel="popup" class="ui-btn" data-transition="none" style="width:25%">Opprett Husstand</a>
 <div data-role="popup" id="CreateHousehold">
   <div data-role="header">
-    <h1>Opprett husstand</h1>
+    <h1>Ny husstand</h1>
   </div>
   <!-- /popup header-->
   <div data-role="main" class="ui-content">
     Navn: <input type="text" id="household_name" placeholder="Navn på husstand"> <br>
-<button onclick="CreateHousehold(household_name.value , '<%= user[0].email %>')"> Opprett Husstand</button>
-    <ul data-role="listview" id="household properties">
+<button onclick="CreateHousehold(household_name.value , '<%= user[0].email %>')">Opprett Husstand</button>
 
-    </ul>
   </div>
   <!-- /popup main-->
 
@@ -331,9 +329,28 @@
 
 -------------------------------------------------------------- <br>
 Adminstrer husstand:<br>
-Leg til medlemmer i husstand: <input type="text" id="household_members" placeholder="Tast inn epost til medlemm"> <br>
+Legg til medlemmer i husstand: <input type="text" id="household_members" placeholder="Tast inn epost til medlemm"> 
+
 <button onclick="AddHouseholdMember(household_members.value , '<%= user[0].email %>')">Legg til medlem</button>
-Opprett oppgave <br>
+
+<a href="#CreateNewTask" data-rel="popup" class="ui-btn" data-transition="none" style="width:25%">Legg til ny oppgave</a>
+<div data-role="popup" id="CreateNewTask">
+  <div data-role="header">
+    <h1>Ny oppgave</h1>
+  </div>
+  <!-- /popup header-->
+  <div data-role="main" class="ui-content">
+    Navn: <input type="text" id="New_task_name" placeholder="Navn på oppgave"> <br>
+    Poeng: <input type="text" id="New_task_point" placeholder="Poeng som oppgaven skal gi"> <br>
+<button onclick="New_task(New_task_name.value , New_task_point.value , '<%= user[0].email %>')"> Opprett oppgave</button>
+
+  </div>
+  <!-- /popup main-->
+
+</div>
+<!-- /popup-->
+
+
 Fjern oppgave
 
 
