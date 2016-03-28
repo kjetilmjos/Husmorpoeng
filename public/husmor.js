@@ -230,14 +230,27 @@ function CreateHousehold(household_name, email) {
 }
 
 function AddHouseholdMember(household_member, email) {
-  //alert("Creating " + household_name);
-
   return $.ajax({
     url: "/husmor/addmember",
     type: "POST",
     data: {
       "new_member": household_member,
       "owner": email,
+    },
+    success: function(data) {
+      alert(data);
+    }
+  });
+}
+
+function New_task(task_name, task_point, email) {
+  return $.ajax({
+    url: "/husmor/newtask",
+    type: "POST",
+    data: {
+      "task_name": task_name,
+      "task_point": task_point,
+      "owner": email
     },
     success: function(data) {
       alert(data);
