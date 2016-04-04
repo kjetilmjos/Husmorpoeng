@@ -55,96 +55,95 @@
       <!-- /panel -->
       <p>Velkommen
         <%= user[0].name %>. La krigen om husmorpoeng starte!
-        <br>
-        Start med å velge oppgaven du har gjort og velg hvem som skal godkjenne oppgavene dine.
-      </p>
-      Du har foreløpig
-      <%= user[0].points   %> /
-        <%= user[0].point_limit   %> poeng
-          <br>
-          <% if(approver_points[0]){ %>
-            Du konkurer mot
-            <%= approver_points[0].name %> som har
-              <%= approver_points[0].points %> /
-                <%= approver_points[0].point_limit   %> poeng
-                  <% } else{ %>
-                    Den du konkurer mot har 0 poeng
-                    <% } %>
-<br>
-                      <a href="#task" data-rel="popup" class="aa link" data-transition="none">Oppgave</a> <br>
-                      <div data-role="popup" id="task">
-                        <div data-role="header">
-                          <h1>Oppgave</h1>
-                        </div>
-                        <!-- /popup header-->
-                        <div data-role="main" class="ui-content">
+          <br> Start med å velge oppgaven du har gjort og velg hvem som skal godkjenne oppgavene dine. <br><br>
+          Du har foreløpig
+          <%= user[0].points   %> /
+            <%= user[0].point_limit   %> poeng
+              <br>
+              <% if(approver_points[0]){ %>
+                Du konkurer mot
+                <%= approver_points[0].name %> som har
+                  <%= approver_points[0].points %> /
+                    <%= approver_points[0].point_limit   %> poeng
+                      <% } else{ %>
+                        Den du konkurer mot har 0 poeng
+                        <% } %>
+                          <br> </p>
+      <a href="#task" data-rel="popup" class="aa link" data-transition="none">Oppgave</a>
+      <br>
+      <div data-role="popup" id="task">
+        <div data-role="header">
+          <h1>Oppgave</h1>
+        </div>
+        <!-- /popup header-->
+        <div data-role="main" class="ui-content">
 
-                          <ul data-role="listview" id="task_list">
-                            <% for(var i=0; i<tasks.length; i++) {%>
-                              <li>
-                                <a onclick="store_task('<%= tasks[i].name %>', '<%= tasks[i].points %>', '<%= user[0].email %>')">
-                                  <%= tasks[i].name %>
-                                </a>
-                              </li>
-                              <% } %>
-                          </ul>
-                        </div>
-                        <!-- /popup main-->
+          <ul data-role="listview" id="task_list">
+            <% for(var i=0; i<tasks.length; i++) {%>
+              <li>
+                <a onclick="store_task('<%= tasks[i].name %>', '<%= tasks[i].points %>', '<%= user[0].email %>')">
+                  <%= tasks[i].name %>
+                </a>
+              </li>
+              <% } %>
+          </ul>
+        </div>
+        <!-- /popup main-->
 
-                      </div>
-                      <!-- /popup-->
+      </div>
+      <!-- /popup-->
 
-                      <!-- LEFT TABLE-->
+      <!-- LEFT TABLE-->
 
 
-                      <ul data-role="listview" style="float: left" id="list1">
-                        <h3>Utførte oppgaver:
+      <ul data-role="listview" style="float: left" id="list1">
+        <h3>Utførte oppgaver:
                           <% if(total_tasks_performed){ %>
                             <%=total_tasks_performed %>
                               <% } else{ %>
                                 0
                                 <% } %>
                         </h3>
-                        <% for(var i=0; i<completed_tasks.length;  i++) {%>
-                          <li>
-                            <a href="#taskdetails" data-rel="popup" class="ui-btn" onclick="detailTask('<%= completed_tasks[i].task_name %>', '<%= completed_tasks[i].user %>','<%= completed_tasks[i].date %>', '<%= completed_tasks[i].approved %>', '<%= completed_tasks[i]._id %>');">
-                              <%= completed_tasks[i].task_name %>
-                            </a>
-                          </li>
-                          <% } %>
-                      </ul>
+        <% for(var i=0; i<completed_tasks.length;  i++) {%>
+          <li>
+            <a href="#taskdetails" data-rel="popup" class="ui-btn" onclick="detailTask('<%= completed_tasks[i].task_name %>', '<%= completed_tasks[i].user %>','<%= completed_tasks[i].date %>', '<%= completed_tasks[i].approved %>', '<%= completed_tasks[i]._id %>');">
+              <%= completed_tasks[i].task_name %>
+            </a>
+          </li>
+          <% } %>
+      </ul>
 
-                      <div data-role="popup" id="taskdetails">
-                        <div data-role="header">
-                          <h1>Detaljer</h1>
-                        </div>
-                        <!-- /popup header-->
-                        <div data-role="main" class="ui-content">
-                          <p>Oppgave:
-                            <span id="detailTask"></span>
-                          </p>
-                          <p> Bruker:
-                            <span id="detailOwner"></span>
-                          </p>
-                          <p> Dato:
-                            <span id="detailDate"></span>
-                          </p>
-                          <p> Godkjent:
-                            <span id="detailApproval"></span>
-                          </p>
-                          <p hidden id="detailId"></p>
-                        </div>
-                        <!-- /popup main-->
-                        <button class="knapp" class="knapp" onclick="deleteTask();">Slett</button>
+      <div data-role="popup" id="taskdetails">
+        <div data-role="header">
+          <h1>Detaljer</h1>
+        </div>
+        <!-- /popup header-->
+        <div data-role="main" class="ui-content">
+          <p>Oppgave:
+            <span id="detailTask"></span>
+          </p>
+          <p> Bruker:
+            <span id="detailOwner"></span>
+          </p>
+          <p> Dato:
+            <span id="detailDate"></span>
+          </p>
+          <p> Godkjent:
+            <span id="detailApproval"></span>
+          </p>
+          <p hidden id="detailId"></p>
+        </div>
+        <!-- /popup main-->
+        <button class="knapp" class="knapp" onclick="deleteTask();">Slett</button>
 
-                      </div>
+      </div>
 
-                      <!-- /popup taskdetails -->
-                      <!-- /LEFT TABLE-->
-                      <!-- RIGHT TABLE-->
+      <!-- /popup taskdetails -->
+      <!-- /LEFT TABLE-->
+      <!-- RIGHT TABLE-->
 
-                      <ul data-role="listview" style="float: left" id="list1">
-                        <h3>Oppgave til godkjenning:
+      <ul data-role="listview" style="float: left" id="list1">
+        <h3>Oppgave til godkjenning:
                           <% if(total_tasks_for_approval){ %>
                             <%=total_tasks_for_approval %>
                               <% } else{ %>
@@ -152,48 +151,48 @@
                                 <% } %>
 
                         </h3>
-                        <% if (tfa) { %>
-                          <% for(var i=0; i<tfa.length;  i++) {%>
-                            <li>
-                              <a href="#approveddetails" data-rel="popup" class="ui-btn" onclick="approvedetailTask('<%= tfa[i].task_name %>', '<%= tfa[i].user %>','<%= tfa[i].date %>', '<%= tfa[i].approved %>', '<%= tfa[i]._id %>', '<%= tfa[i].points %>');">
-                                <%= tfa[i].task_name %>
-                              </a>
-                            </li>
-                            <% } %>
-                              <% } %>
+        <% if (tfa) { %>
+          <% for(var i=0; i<tfa.length;  i++) {%>
+            <li>
+              <a href="#approveddetails" data-rel="popup" class="ui-btn" onclick="approvedetailTask('<%= tfa[i].task_name %>', '<%= tfa[i].user %>','<%= tfa[i].date %>', '<%= tfa[i].approved %>', '<%= tfa[i]._id %>', '<%= tfa[i].points %>');">
+                <%= tfa[i].task_name %>
+              </a>
+            </li>
+            <% } %>
+              <% } %>
 
-                      </ul>
+      </ul>
 
-                      <div data-role="popup" id="approveddetails">
-                        <div data-role="header">
-                          <h1>Detaljer</h1>
-                        </div>
-                        <!-- /popup header-->
-                        <div data-role="main" class="ui-content">
-                          <p>Oppgave:
-                            <span id="approvedetailTask"></span>
-                          </p>
-                          <p> Bruker:
-                            <span id="approvedetailOwner"></span>
-                          </p>
-                          <p> Dato:
-                            <span id="approvedetailDate"></span>
-                          </p>
-                          <p> Godkjent:
-                            <span id="approvedetailApproval"></span>
-                          </p>
-                          <p hidden id="approvedetailId"></p>
-                          <p hidden id="approvedetailpoints"></p>
-                        </div>
-                        <!-- /popup main-->
-                        <button class="knapp" onclick="approveTask();">Godkjenn</button>
+      <div data-role="popup" id="approveddetails">
+        <div data-role="header">
+          <h1>Detaljer</h1>
+        </div>
+        <!-- /popup header-->
+        <div data-role="main" class="ui-content">
+          <p>Oppgave:
+            <span id="approvedetailTask"></span>
+          </p>
+          <p> Bruker:
+            <span id="approvedetailOwner"></span>
+          </p>
+          <p> Dato:
+            <span id="approvedetailDate"></span>
+          </p>
+          <p> Godkjent:
+            <span id="approvedetailApproval"></span>
+          </p>
+          <p hidden id="approvedetailId"></p>
+          <p hidden id="approvedetailpoints"></p>
+        </div>
+        <!-- /popup main-->
+        <button class="knapp" onclick="approveTask();">Godkjenn</button>
 
-                      </div>
+      </div>
 
-                      <!-- /popup taskdetails -->
+      <!-- /popup taskdetails -->
 
-                      <!-- /popup taskdetails -->
-                      <!-- /RIGHT TABLE-->
+      <!-- /popup taskdetails -->
+      <!-- /RIGHT TABLE-->
 
     </div>
     <!-- /page oppgaver -->
@@ -257,7 +256,7 @@
       <h1> Husmorpoeng! </h1>
     </div>
     <!-- /header -->
-    <div role="main" class="cities" id ="husmain">
+    <div role="main" class="cities" id="husmain">
       <div data-role="panel" class="jqm-navmenu-panel" data-position="left" data-display="overlay" data-theme="a" id="nav-panel3">
 
         <ul data-role="listview">
@@ -270,19 +269,19 @@
 
       </div>
       <!-- /panel -->
-      <input type="text" id="settings_approver" placeholder="Epost til den som skal godkjenne" data-role= "none">
+      <input type="text" id="settings_approver" placeholder="Epost til den som skal godkjenne" data-role="none">
       <button class="knapp" onclick="changeApprover('<%= user[0].email %>')"> Bytt godkjenner</button>
-<br>
-      Du konkurer med:
+      <br> Du konkurer med:
       <%= user[0].approver %>
         <br>
         <br>
-        <br> Reset poeng <br>
+        <br> Reset poeng
+        <br>
         <button class="knapp" onclick="resetScore('<%= user[0].email %>')"> Reset</button>
         <br>
         <br>
         <br>
-        <input type="text" id="change_point_limit" placeholder="Endre poeng grense" data-role= "none">
+        <input type="text" id="change_point_limit" placeholder="Endre poeng grense" data-role="none">
         <button class="knapp" onclick="changepointlimit('<%= user[0].email %>')"> Endre</button>
     </div>
     <!-- /main settings -->
@@ -311,48 +310,52 @@
       </div>
       <!-- /panel -->
 
-<a href="#CreateHousehold" data-rel="popup" class="aa link" data-transition="none">Opprett Husstand</a>
-<div data-role="popup" id="CreateHousehold">
-  <div data-role="header">
-    <h1>Ny husstand</h1>
-  </div>
-  <!-- /popup header-->
-  <div data-role="main" class="ui-content">
-    Navn: <input type="text" id="household_name" placeholder="Navn på husstand"> <br>
-<button class="knapp" onclick="CreateHousehold(household_name.value , '<%= user[0].email %>')">Opprett Husstand</button>
+      <a href="#CreateHousehold" data-rel="popup" class="aa link" data-transition="none">Opprett Husstand</a>
+      <div data-role="popup" id="CreateHousehold">
+        <div data-role="header">
+          <h1>Ny husstand</h1>
+        </div>
+        <!-- /popup header-->
+        <div data-role="main" class="ui-content">
+          Navn:
+          <input type="text" id="household_name" placeholder="Navn på husstand">
+          <br>
+          <button class="knapp" onclick="CreateHousehold(household_name.value , '<%= user[0].email %>')">Opprett Husstand</button>
 
-  </div>
-  <!-- /popup main-->
+        </div>
+        <!-- /popup main-->
 
-</div>
-<!-- /popup-->
-<br>
+      </div>
+      <!-- /popup-->
+      <br> --------------------------------------------------------------
+      <br> Adminstrer husstand:
+      <br> Legg til medlemmer i husstand:
+      <br>
+      <input type="text" id="household_members" placeholder="Tast inn epost til medlem" data-role="none">
 
--------------------------------------------------------------- <br>
-Adminstrer husstand:<br>
-Legg til medlemmer i husstand: <br><input type="text" id="household_members" placeholder="Tast inn epost til medlem" data-role="none">
+      <button class="knapp" onclick="AddHouseholdMember(household_members.value , '<%= user[0].email %>')">Legg til medlem</button>
+      <br>
+      <a class="aa link" href="#CreateNewTask" data-rel="popup" data-transition="none">Legg til ny oppgave</a>
+      <div data-role="popup" id="CreateNewTask">
+        <div data-role="header">
+          <h1>Ny oppgave</h1>
+        </div>
+        <!-- /popup header-->
+        <div data-role="main" class="ui-content">
+          Navn:
+          <input type="text" id="New_task_name" placeholder="Navn på oppgave">
+          <br> Poeng:
+          <input type="text" id="New_task_point" placeholder="Poeng som oppgaven skal gi">
+          <br>
+          <button class="knapp" onclick="New_task(New_task_name.value , New_task_point.value , '<%= user[0].email %>')"> Opprett oppgave</button>
 
-<button class="knapp" onclick="AddHouseholdMember(household_members.value , '<%= user[0].email %>')">Legg til medlem</button>
-<br>
-<a class="aa link" href="#CreateNewTask" data-rel="popup" data-transition="none">Legg til ny oppgave</a>
-<div data-role="popup" id="CreateNewTask">
-  <div data-role="header">
-    <h1>Ny oppgave</h1>
-  </div>
-  <!-- /popup header-->
-  <div data-role="main" class="ui-content">
-    Navn: <input type="text" id="New_task_name" placeholder="Navn på oppgave"> <br>
-    Poeng: <input type="text" id="New_task_point" placeholder="Poeng som oppgaven skal gi"> <br>
-<button class="knapp" onclick="New_task(New_task_name.value , New_task_point.value , '<%= user[0].email %>')"> Opprett oppgave</button>
+        </div>
+        <!-- /popup main-->
 
-  </div>
-  <!-- /popup main-->
+      </div>
+      <!-- /popup-->
 
-</div>
-<!-- /popup-->
-
-<br>
-Fjern oppgave
+      <br> Fjern oppgave
 
 
 
