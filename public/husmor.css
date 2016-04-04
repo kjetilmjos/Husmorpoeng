@@ -1,4 +1,90 @@
-#list1{
-    width: 45% !important;
-    padding: 2%  !important;
+#list1 {
+  width: 45% !important;
+  padding: 2% !important;
+}
+
+/*
+#husmain{
+  background-color: lightblue !important;
+}
+*/
+
+div.cities {
+  background-color: lightblue;
+}
+button {
+  background-color: #4CAF50/* Green */
+  !important;
+  border: none !important;
+  border-radius: 12px !important;
+  color: white !important;
+  padding: 16px 32px !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  font-size: 16px !important;
+  margin: 4px 2px !important;
+  -webkit-transition-duration: 0.4s !important;
+  /* Safari */
+  transition-duration: 0.4s !important;
+  cursor: pointer !important;
+  width: 20% !important;
+}
+button.knapp {
+  background-color: white !important;
+  color: black !important;
+  border: 2px solid #4CAF50 !important;
+}
+button.knapp:hover {
+  background-color: #4CAF50 !important;
+  color: white !important;
+}
+.aa {
+  background-color: #4CAF50/* Green */
+  !important;
+  border-radius: 12px !important;
+  border: none !important;
+  color: white !important;
+  padding: 16px 32px !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  display: inline-block !important;
+  font-size: 16px !important;
+  margin: 4px 2px !important;
+  -webkit-transition-duration: 0.4s !important;
+  /* Safari */
+  transition-duration: 0.4s !important;
+  cursor: pointer !important;
+  width: 20% !important;
+}
+.link {
+  background-color: white !important;
+  color: black !important;
+  border: 2px solid #4CAF50 !important;
+}
+.link:hover {
+  background-color: #4CAF50 !important;
+  color: white !important;
+}
+.head {
+  background-color: #4CAF50/* Green */
+  !important;
+  text-align: center !important;
+  text-decoration: none !important;
+  color: white !important;
+  font-size: 18px !important;
+}
+input[type=text] {
+  width: 30% !important;
+  padding: 12px 20px !important;
+  margin: 8px 0 !important;
+  background-color: #ccc !important;
+  border: 1px solid #ccc !important;
+}
+
+::-webkit-input-placeholder {
+   color: blue;
+}
+::-moz-placeholder {  /* Firefox 19+ */
+   color: blue;
 }
