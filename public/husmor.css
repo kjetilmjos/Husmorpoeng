@@ -3,11 +3,6 @@
   padding: 2% !important;
 }
 
-/*
-#husmain{
-  background-color: lightblue !important;
-}
-*/
 
 div.cities {
   background-color: lightblue;
@@ -28,7 +23,7 @@ button {
   /* Safari */
   transition-duration: 0.4s !important;
   cursor: pointer !important;
-  width: 20% !important;
+  width: 11% !important;
 }
 button.knapp {
   background-color: white !important;
@@ -55,7 +50,7 @@ button.knapp:hover {
   /* Safari */
   transition-duration: 0.4s !important;
   cursor: pointer !important;
-  width: 20% !important;
+  width: 11% !important;
 }
 .link {
   background-color: white !important;
@@ -87,4 +82,9 @@ input[type=text] {
 }
 ::-moz-placeholder {  /* Firefox 19+ */
    color: blue;
+}
+
+p {
+    font-family: "Times New Roman", Times, serif;
+    font-size: 20px;
 }
