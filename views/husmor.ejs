@@ -12,10 +12,14 @@
   <script src="https://code.highcharts.com/highcharts.js"></script>
   <script src="https://code.highcharts.com/highcharts-more.js"></script>
   <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+  <script src="https://cdn.rawgit.com/kimmobrunfeldt/progressbar.js/1.0.0/dist/progressbar.js"></script>
   <script>
     $(document).on("pageshow", "#statistikk", function() {
       load();
       get_favorites();
+    });
+    $(document).on("pageshow", "#oppgaver", function() {
+      score();
     });
   </script>
 </head>
@@ -55,19 +59,24 @@
       <!-- /panel -->
       <p>Velkommen
         <%= user[0].name %>. La krigen om husmorpoeng starte!
-          <br> Start med å velge oppgaven du har gjort og velg hvem som skal godkjenne oppgavene dine. <br><br>
-          Dine poeng er foreløpig
-      <div class="numberCircle">    <%= user[0].points   %>/<%= user[0].point_limit   %>  </div>
-              <br>
-              <% if(approver_points[0]){ %>
-                Du konkurer mot
-                <%= approver_points[0].name %> som har
-                  <%= approver_points[0].points %> /
-                    <%= approver_points[0].point_limit   %> poeng
-                      <% } else{ %>
-                        Den du konkurer mot har 0 poeng
-                        <% } %>
-                          <br> </p>
+          <br> Start med å velge oppgaven du har gjort og velg hvem som skal godkjenne oppgavene dine.
+          <br>
+          <br> Dine poeng er foreløpig
+          <div class="numberCircle">
+            <%= user[0].points   %>/
+              <%= user[0].point_limit   %>
+          </div>
+          <br>
+          <% if(approver_points[0]){ %>
+            Du konkurer mot
+            <%= approver_points[0].name %> som har
+              <%= approver_points[0].points %> /
+                <%= approver_points[0].point_limit   %> poeng
+                  <% } else{ %>
+                    Den du konkurer mot har 0 poeng
+                    <% } %>
+                      <br> </p>
+      <div id="example-percent-container" class="score"></div>
       <a href="#task" data-rel="popup" class="aa link" data-transition="none">Oppgave</a>
       <br>
       <div data-role="popup" id="task">
