@@ -105,3 +105,12 @@ p {
     font-size: 30px;
 
 }
+.score{
+  width: 100px;
+  height: 100px;
+  padding: 8px;
+  font-family: "Times New Roman", Times, serif;
+  font-size: 30px;
+
+
+}

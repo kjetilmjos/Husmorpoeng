@@ -258,3 +258,29 @@ function New_task(task_name, task_point, email) {
   });
 
 }
+
+function score() {
+  var value = 78;
+
+  var circle = new ProgressBar.Circle('#example-percent-container', {
+    color: '#4CAF50',
+    strokeWidth: 2,
+    trailWidth: 2,
+    trailColor: '#D3D3D3',
+    fill: '#fff',
+    duration: 500,
+    text: {
+      style: {
+        color: 'black',
+        position: 'absolute',
+           left: '15%',
+           top: '30%',
+           padding: 0,
+           margin: 0,
+      }
+    }
+  });
+  circle.animate(value / 100);
+  circle.setText(value + "/100");
+
+}
