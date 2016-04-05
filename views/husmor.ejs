@@ -56,9 +56,8 @@
       <p>Velkommen
         <%= user[0].name %>. La krigen om husmorpoeng starte!
           <br> Start med å velge oppgaven du har gjort og velg hvem som skal godkjenne oppgavene dine. <br><br>
-          Du har foreløpig
-          <%= user[0].points   %> /
-            <%= user[0].point_limit   %> poeng
+          Dine poeng er foreløpig
+      <div class="numberCircle">    <%= user[0].points   %>/<%= user[0].point_limit   %>  </div>
               <br>
               <% if(approver_points[0]){ %>
                 Du konkurer mot
